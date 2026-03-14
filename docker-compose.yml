@@ -1,0 +1,30 @@
+# ローカルで WordPress を起動し、テーマをマウントして確認する用
+# 使い方: docker compose up -d → http://localhost:8080 で初期設定 → テーマ「会社HP（屋号）」を有効化
+
+services:
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DB_NAME: wp
+    volumes:
+      - ./wordpress-theme/company-hp:/var/www/html/wp-content/themes/company-hp
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: wp
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - wp_data:/var/lib/mysql
+
+volumes:
+  wp_data:

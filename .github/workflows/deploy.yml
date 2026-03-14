@@ -1,0 +1,33 @@
+# WordPress テーマを Lightsail の WordPress にデプロイ
+# 必要な GitHub Secrets: SSH_PRIVATE_KEY, SSH_HOST, SSH_USER
+# 推奨 Repository variable: DEPLOY_PATH（例: /opt/bitnami/wordpress/wp-content/themes/company-hp）
+
+name: Deploy to Lightsail (WordPress theme)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy WordPress theme
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+        run: |
+          DEPLOY_PATH="${DEPLOY_PATH:-/opt/bitnami/wordpress/wp-content/themes/company-hp}"
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            wordpress-theme/company-hp/ "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}/"
+          rm -f ~/.ssh/deploy_key
