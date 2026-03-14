@@ -69,7 +69,10 @@ if ( file_exists( $hero_webp ) ) {
 			$is_wp_default = ( $content_plain && (
 				strpos( $content_plain, 'WordPress へようこそ' ) !== false ||
 				strpos( $content_plain, 'こちらは最初の投稿' ) !== false ||
-				strpos( $content_plain, 'コンテンツ作成を始めてください' ) !== false
+				strpos( $content_plain, 'コンテンツ作成を始めてください' ) !== false ||
+				strpos( $content_plain, 'Welcome to WordPress' ) !== false ||
+				strpos( $content_plain, 'This is your first post' ) !== false ||
+				strpos( $content_plain, 'Edit or delete it, then start writing' ) !== false
 			) );
 			if ( $content && ! $is_wp_default ) {
 				$show_default_service = false;
