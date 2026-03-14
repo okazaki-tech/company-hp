@@ -18,7 +18,7 @@ get_header();
 				the_post();
 				?>
 				<article>
-					<h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
+					<h1><a href="<?php echo esc_url( get_permalink() ); ?>"><?php echo esc_html( get_the_title() ); ?></a></h1>
 					<?php the_excerpt(); ?>
 				</article>
 				<?php

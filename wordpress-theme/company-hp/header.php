@@ -20,9 +20,9 @@ defined( 'ABSPATH' ) || exit;
 <header class="site-header">
 	<div class="container">
 		<?php if ( is_front_page() ) : ?>
-			<span class="site-title"><?php bloginfo( 'name' ); ?></span>
+			<span class="site-title"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></span>
 		<?php else : ?>
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-title"><?php bloginfo( 'name' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-title"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></a>
 		<?php endif; ?>
 		<nav class="site-nav" aria-label="<?php esc_attr_e( 'メインメニュー', 'company-hp' ); ?>">
 			<?php

@@ -26,6 +26,8 @@ docker compose up -d
 
 ブラウザで http://localhost:8080 を開き、WordPress の初期設定後、**外観 → テーマ** で「会社HP（屋号）」を有効化して表示を確認します。テーマフォルダをマウントしているため、編集するとリロードで反映されます。終了時は `docker compose down`。
 
+**トップ以外のページ**（事業者について・お問い合わせ等）を見るには、**固定ページ**でスラッグ `about` / `contact` / `privacy-policy` / `terms` のページを作成し、`http://localhost:8080/about/` のように URL で開くか、**外観 → メニュー** に追加してヘッダーから遷移してください。詳しくは `docs/LIGHTSAIL_DEPLOY.md` の「4.5 ローカル環境での確認」内の「トップ以外のページを確認するには」を参照。
+
 ### LocalWP / MAMP など
 
 WordPress の `wp-content/themes/company-hp` に、`wordpress-theme/company-hp` をコピーまたはシンボリックリンクで配置し、テーマを有効化して確認します。
