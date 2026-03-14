@@ -1,6 +1,7 @@
 # WordPress テーマを Lightsail の WordPress にデプロイ
 # 必要な GitHub Secrets: SSH_PRIVATE_KEY, SSH_HOST, SSH_USER
 # 推奨 Repository variable: DEPLOY_PATH（例: /opt/bitnami/wordpress/wp-content/themes/company-hp）
+# リモートに rsync が無いため tar + SSH で転送（rsync 不要）
 
 name: Deploy to Lightsail (WordPress theme)
 
@@ -23,11 +24,15 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
         run: |
+          set -e
           DEPLOY_PATH="${DEPLOY_PATH:-/opt/bitnami/wordpress/wp-content/themes/company-hp}"
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
-          rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
-            wordpress-theme/company-hp/ "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}/"
+          SSH_OPTS="-i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+          echo "Preparing remote directory: $DEPLOY_PATH"
+          ssh $SSH_OPTS "${SSH_USER}@${SSH_HOST}" "mkdir -p ${DEPLOY_PATH} && (cd ${DEPLOY_PATH} && find . -mindepth 1 -delete)"
+          echo "Uploading theme (tar over SSH)..."
+          tar -czf - -C wordpress-theme/company-hp . | ssh $SSH_OPTS "${SSH_USER}@${SSH_HOST}" "tar -xzf - -C ${DEPLOY_PATH}"
           rm -f ~/.ssh/deploy_key
