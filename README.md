@@ -18,30 +18,29 @@ Stripe 申請などで必要な会社公式サイトです。**AWS Lightsail の
 
 ## ローカルでテーマを確認する
 
-### Docker を使う（推奨）
+**ローカル用の WordPress は dev-platform の 1 つだけ**にしています（DB や設定の二重管理を避けるため）。
 
-```bash
-docker compose up -d
-```
+### dev-platform の shared-infra を使う（推奨）
 
-ブラウザで http://localhost:8080 を開き、WordPress の初期設定後、**外観 → テーマ** で「会社HP（屋号）」を有効化して表示を確認します。テーマフォルダをマウントしているため、編集するとリロードで反映されます。終了時は `docker compose down`。
+**dev-platform** を `repositories` 直下に置き、**shared-infra** を起動すると **https://company.localhost** で WordPress が動きます。テーマはマウントされているので、Cursor で編集するとリロードで反映されます。
 
-**トップ以外のページ**（事業者について・お問い合わせ等）を見るには、**固定ページ**でスラッグ `about` / `contact` / `privacy-policy` / `terms` のページを作成し、`http://localhost:8080/about/` のように URL で開くか、**外観 → メニュー** に追加してヘッダーから遷移してください。詳しくは `docs/LIGHTSAIL_DEPLOY.md` の「4.5 ローカル環境での確認」内の「トップ以外のページを確認するには」を参照。
+1. 証明書・DB・起動手順は **`docs/LIGHTSAIL_DEPLOY.md`** の「4.5 方法 C」を参照
+2. **https://company.localhost** で WordPress を開き、初期設定（言語・サイト名・管理者パスワード）を行う
+3. **外観** → **テーマ** で「会社HP（屋号）」を選び **有効化** する（手順の詳細は `docs/LIGHTSAIL_DEPLOY.md` の「会社 HP テーマを有効化する手順」を参照）
+4. 固定ページ（ホーム・事業者について・お問い合わせ等）はテーマ有効化時に自動作成されます
 
-### LocalWP / MAMP など
+**問い合わせフォームの送信テスト**をするときは、**WP Mail SMTP** で SMTP ホスト `mailpit`・ポート `1025` に設定し、送信後に **https://mailpit.localhost** でメールを確認します。証明書（mkcert）は **PowerShell で実行**してください。
 
-WordPress の `wp-content/themes/company-hp` に、`wordpress-theme/company-hp` をコピーまたはシンボリックリンクで配置し、テーマを有効化して確認します。
+### LocalWP / MAMP など（任意）
 
-### 問い合わせフォームの確認（dev-platform）
-
-**お問い合わせフォームの送信〜メール受信**まで確認したい場合は **dev-platform** を使います。https://company.localhost で WordPress が動き、送信メールは https://mailpit.localhost で確認できます。証明書（mkcert）は **PowerShell で実行**してください。手順は `docs/LIGHTSAIL_DEPLOY.md` の「4.5 方法 C: dev-platform で問い合わせフォームを確認する」および dev-platform の README を参照してください。
+WordPress の `wp-content/themes/company-hp` に、`wordpress-theme/company-hp` をコピーまたはシンボリックリンクで配置し、テーマを有効化して確認します。メール送信テストはできません。
 
 ## Lightsail WordPress へのデプロイ
 
 1. **Lightsail** で WordPress インスタンス（Bitnami 等）を作成し、固定 IP を付与
 2. **GitHub Secrets** に `SSH_PRIVATE_KEY`, `SSH_HOST`, `SSH_USER` を設定（詳細は `docs/LIGHTSAIL_DEPLOY.md`）
 3. **Repository variable**（任意）: `DEPLOY_PATH` にテーマのパスを指定
-4. `main` に push すると GitHub Actions が `wordpress-theme/company-hp/` を Lightsail に rsync
+4. `main` に push すると GitHub Actions が `wordpress-theme/company-hp/` を Lightsail に転送（tar + SSH）
 5. WordPress 管理画面でテーマ「会社HP（屋号）」を有効化し、固定ページ・メニューを設定
 
 詳細: **`docs/LIGHTSAIL_DEPLOY.md`**

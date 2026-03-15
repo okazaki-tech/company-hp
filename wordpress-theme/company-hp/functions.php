@@ -29,6 +29,26 @@ add_action( 'wp_enqueue_scripts', function () {
 	);
 }, 10 );
 
+// Contact Form 7: Enter では送信せず、送信ボタンのクリックのみで送信
+add_action( 'wp_footer', function () {
+	if ( ! function_exists( 'wpcf7_get_current_contact_form' ) ) {
+		return;
+	}
+	?>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		document.addEventListener('keydown', function(e) {
+			if (e.key !== 'Enter') return;
+			var form = e.target && e.target.closest && e.target.closest('.wpcf7-form');
+			if (!form) return;
+			if (e.target.tagName === 'TEXTAREA') return;
+			e.preventDefault();
+		});
+	});
+	</script>
+	<?php
+}, 20 );
+
 // メニュー登録
 register_nav_menus( array(
 	'primary' => __( 'メインメニュー', 'company-hp' ),
@@ -102,9 +122,13 @@ function company_hp_create_default_pages() {
 			'post_author' => 1,
 		) );
 
-		if ( ! is_wp_error( $post_id ) && ! empty( $p['meta'] ) ) {
-			foreach ( $p['meta'] as $key => $value ) {
-				update_post_meta( $post_id, $key, $value );
+		if ( ! is_wp_error( $post_id ) ) {
+			// 下書きで作成された場合に備え、明示的に公開
+			wp_publish_post( $post_id );
+			if ( ! empty( $p['meta'] ) ) {
+				foreach ( $p['meta'] as $key => $value ) {
+					update_post_meta( $post_id, $key, $value );
+				}
 			}
 		}
 
@@ -118,6 +142,9 @@ function company_hp_create_default_pages() {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $home_page_id );
 	}
+
+	// /contact/ などの固定ページURLを有効にするためリライトルールを更新
+	flush_rewrite_rules();
 }
 
 // ファビコン・ホーム画面アイコン（Axiola ロゴ）。管理画面でサイトアイコン未設定の場合のみ表示

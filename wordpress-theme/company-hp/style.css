@@ -419,6 +419,113 @@ body {
   text-decoration: underline;
 }
 
+/* ==========================================================================
+   Contact Form 7（テーマに合わせたスタイル）
+   ========================================================================== */
+
+.page-content .wpcf7 {
+  margin-top: var(--space-xl);
+  width: 100%;
+}
+
+.page-content .wpcf7-form {
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-content .wpcf7-form > p {
+  margin: 0 0 var(--space-lg);
+}
+
+.page-content .wpcf7-form label {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.page-content .wpcf7-form-control.wpcf7-text,
+.page-content .wpcf7-form-control.wpcf7-email,
+.page-content .wpcf7-form-control.wpcf7-tel,
+.page-content .wpcf7-form-control.wpcf7-textarea {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background: var(--color-bg-card);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.page-content .wpcf7-form-control.wpcf7-text:focus,
+.page-content .wpcf7-form-control.wpcf7-email:focus,
+.page-content .wpcf7-form-control.wpcf7-tel:focus,
+.page-content .wpcf7-form-control.wpcf7-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+}
+
+.page-content .wpcf7-form-control.wpcf7-textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.page-content .wpcf7-submit {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: var(--space-md) var(--space-xl);
+  color: #fff;
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-content .wpcf7-submit:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.page-content .wpcf7-submit:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.35);
+}
+
+.page-content .wpcf7-not-valid-tip {
+  font-size: 0.875rem;
+  color: #b91c1c;
+  margin-top: var(--space-xs);
+}
+
+.page-content .wpcf7-response-output {
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+}
+
+.page-content .wpcf7-mail-sent-ok {
+  border: 1px solid #059669;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.page-content .wpcf7-validation-errors,
+.page-content .wpcf7-mail-sent-ng {
+  border: 1px solid #b91c1c;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
 /* 事業者について：定義リスト */
 .about-list {
   display: grid;
