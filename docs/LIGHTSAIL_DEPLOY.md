@@ -288,6 +288,8 @@ HTTPS で開くには **mkcert で証明書を発行**し、Traefik が読み込
 
 ## 9. Contact Form 7 の設定（Lightsail WordPress）
 
+**本番で独自ドメイン・SES・Route 53 まで一括で設定したい場合** は **[PRODUCTION_CF7_SES_ROUTE53.md](./PRODUCTION_CF7_SES_ROUTE53.md)** を参照してください。
+
 ### 9.1 インストールと有効化
 
 1. WordPress 管理画面にログイン
@@ -344,6 +346,8 @@ HTTPS で開くには **mkcert で証明書を発行**し、Traefik が読み込
 ### 9.4 メールが届かない場合（Lightsail で重要）
 
 Lightsail のサーバーでは **PHP の mail() が使えない・届きにくい** ことがあります。その場合は **SMTP プラグイン** で外部 SMTP 経由にします。
+
+**本番環境で Contact Form 7 + Amazon SES + Route 53 をまとめて設定する手順** は **[PRODUCTION_CF7_SES_ROUTE53.md](./PRODUCTION_CF7_SES_ROUTE53.md)** を参照してください（Route 53 の A レコード・ネームサーバー変更、SES のドメイン認証・SMTP 認証情報、SPF/DKIM、WP Mail SMTP の設定まで一通り記載しています）。
 
 **推奨手順**
 
