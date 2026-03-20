@@ -410,9 +410,72 @@ body {
   color: var(--color-text-muted);
 }
 
+.page-lead {
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.page-content .policy-body ul,
+.page-content .policy-body ol {
+  margin: 0 0 var(--space-lg);
+  padding-left: 1.2em;
+}
+
+.page-content .policy-body li {
+  margin-bottom: var(--space-xs);
+}
+
 .page-content .policy-body small {
   color: var(--color-text-light);
   font-size: 0.875rem;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: var(--space-lg);
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.price-table th,
+.price-table td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.price-table th {
+  background: var(--color-border-light);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.price-table tr:last-child td {
+  border-bottom: none;
+}
+
+.faq-list {
+  margin: 0 0 var(--space-lg);
+}
+
+.faq-list dt {
+  margin: var(--space-md) 0 var(--space-xs);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.faq-list dd {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-text-muted);
 }
 
 .page-content a {
@@ -561,6 +624,10 @@ body {
 /* ==========================================================================
    運営サービス一覧
    ========================================================================== */
+
+.section-pages {
+  padding-top: var(--space-xl);
+}
 
 .service-list {
   list-style: none;

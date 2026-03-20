@@ -116,6 +116,32 @@ $services = array(
 	</div>
 </section>
 
+<section class="section section-pages">
+	<div class="container">
+		<h2>ご案内</h2>
+		<ul class="service-list">
+			<li class="service-item">
+				<a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="service-link">
+					<span class="service-title">サービス詳細</span>
+					<span class="service-desc">制作 / 保守 / 運用で、どこまで対応するかを具体的にご案内します。</span>
+				</a>
+			</li>
+			<li class="service-item">
+				<a href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>" class="service-link">
+					<span class="service-title">料金・プラン</span>
+					<span class="service-desc">費用の目安と対応範囲を確認できます。ご相談前の比較にも便利です。</span>
+				</a>
+			</li>
+			<li class="service-item">
+				<a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>" class="service-link">
+					<span class="service-title">FAQ</span>
+					<span class="service-desc">見積もり、納期、修正回数、保守対応など、よくある質問に回答しています。</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</section>
+
 <section class="section section-cta">
 	<div class="container">
 		<div class="cta-block">

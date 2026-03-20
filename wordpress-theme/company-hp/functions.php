@@ -65,8 +65,11 @@ add_action( 'admin_init', 'company_hp_maybe_create_default_pages' );
 function company_hp_maybe_create_default_pages() {
 	$current_version = wp_get_theme()->get( 'Version' ) ?: '0.1.0';
 	$saved_version   = get_option( 'company_hp_pages_version', '' );
+
+	// テーマバージョンが同じでも、新しく追加した固定ページが未作成なら補完する。
+	company_hp_create_default_pages();
+
 	if ( $saved_version !== $current_version ) {
-		company_hp_create_default_pages();
 		update_option( 'company_hp_pages_version', $current_version );
 	}
 }
@@ -100,6 +103,21 @@ function company_hp_create_default_pages() {
 			'post_name'  => 'terms',
 			'post_title' => __( '利用規約', 'company-hp' ),
 			'meta'       => array( '_wp_page_template' => 'page-terms.php' ),
+		),
+		array(
+			'post_name'  => 'services',
+			'post_title' => __( 'サービス詳細', 'company-hp' ),
+			'meta'       => array( '_wp_page_template' => 'page-services.php' ),
+		),
+		array(
+			'post_name'  => 'pricing',
+			'post_title' => __( '料金・プラン', 'company-hp' ),
+			'meta'       => array( '_wp_page_template' => 'page-pricing.php' ),
+		),
+		array(
+			'post_name'  => 'faq',
+			'post_title' => __( 'FAQ', 'company-hp' ),
+			'meta'       => array( '_wp_page_template' => 'page-faq.php' ),
 		),
 	);
 
