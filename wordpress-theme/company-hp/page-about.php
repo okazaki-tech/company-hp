@@ -36,7 +36,7 @@ get_header();
 						<dt>事業者</dt>
 						<dd>個人事業主（法人ではありません）</dd>
 						<dt>所在地</dt>
-						<dd>東京都世田谷区船橋</dd>
+						<dd>〒1540004 東京都世田谷区太子堂4丁目18番15号 マガザン三軒茶屋2 3F-3</dd>
 						<dt>連絡先</dt>
 						<dd>support@axiola.jp<br><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">お問い合わせページ</a>からもご連絡いただけます。</dd>
 					</dl>
