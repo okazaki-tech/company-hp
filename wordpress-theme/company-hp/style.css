@@ -386,6 +386,11 @@ body {
   color: #0d9488;
 }
 
+/* CTA ボタンは hover でも下線を出さない（.section a:hover の上書き） */
+.section .cta-button:hover {
+  text-decoration: none !important;
+}
+
 /* 固定ページ本文（プライバシーポリシー・利用規約等） */
 .page-content .policy-body h2 {
   font-size: 1.125rem;
@@ -592,6 +597,11 @@ body {
   border-color: var(--color-accent);
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
+}
+
+/* カードリンクは hover でも下線を出さない（.section a:hover の上書き） */
+.section .service-link:hover {
+  text-decoration: none !important;
 }
 
 .service-link::after {
